@@ -1,3 +1,10 @@
+AllCops:
+  Exclude:
+    - Guardfile
+    - spec/spec_helper.rb
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 2.5
 Documentation:
   Enabled: false
 Metrics/LineLength:
@@ -6,3 +13,6 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Naming/UncommunicativeMethodParamName:
   Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*.rb
