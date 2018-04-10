@@ -5,14 +5,22 @@ AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
   TargetRubyVersion: 2.5
+
 Documentation:
   Enabled: false
+
 Metrics/LineLength:
   Max: 100
-Style/FrozenStringLiteralComment:
-  Enabled: false
-Naming/UncommunicativeMethodParamName:
-  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - spec/**/*.rb
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
