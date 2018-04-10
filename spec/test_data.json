@@ -1,0 +1,13 @@
+{
+   "nodes": [
+    {"id": "Myriel", "group": 1},
+    {"id": "Napoleon", "group": 1},
+    {"id": "Mlle_Baptistine", "group": 1},
+    {"id": "Mme_Magloire", "group": 1}
+  ],
+  "edges": [
+    {"source": "Napoleon", "target": "Myriel", "value": 1},
+    {"source": "Mlle_Baptistine", "target": "Myriel", "value": 8},
+    {"source": "Mme_Magloire", "target": "Myriel", "value": 10}
+  ]
+}
