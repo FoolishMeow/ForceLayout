@@ -1,11 +1,13 @@
 class Node
   attr_reader :id, :data
+  attr_accessor :point
 
   @@nodes = []
 
   def initialize(data)
-    @id = data[:id]
+    @id = data['id']
     @data = data
+    @point = nil
   end
 
   def save
