@@ -1,10 +1,11 @@
 class Point
-  attr_reader :position, :id, :group, :mass
+  attr_reader :id, :group, :mass
+  attr_accessor :velocity, :accelerate, :position
 
   REPULSION = 200.0
   DAMPING = 0.8
   MAX_SPEED = 1000
-  COULOM_CONSTANT = 0.01
+  COULOM_DIS_SCALE = 0.01
 
   def initialize(position, id, group = -1, mass = 1.0)
     @position = position
