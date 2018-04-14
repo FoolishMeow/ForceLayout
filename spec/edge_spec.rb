@@ -1,20 +1,24 @@
 require 'node'
 require 'edge'
+require 'json'
 
 RSpec.describe Edge, 'edge' do
   before(:all) do
-    @node1 = Node.new('id': 'Napoleon', 'group': 1)
-    @node2 = Node.new('id': 'Myriel', 'group': 1)
+    file = File.read(File.expand_path('./test_data.json', File.dirname(__FILE__)))
+    data = JSON.parse(file)
+    nodes_data = data['nodes']
+    edge_data = data['edges'][0]
+    @node1 = Node.new(nodes_data[0])
+    @node2 = Node.new(nodes_data[1])
     @node1.save
     @node2.save
-    edge_data = { 'source': 'Napoleon', 'target': 'Myriel', 'value': 1 }
     @edge = Edge.new(1, edge_data)
   end
 
   context 'Init Edge' do
     it 'can new a edge with data' do
-      expect(@edge.source).to eq @node1
-      expect(@edge.target).to eq @node2
+      expect(@edge.source).to eq @node2
+      expect(@edge.target).to eq @node1
     end
   end
 
@@ -27,6 +31,10 @@ RSpec.describe Edge, 'edge' do
     it 'can find edge by id' do
       edge = Edge.find(1)
       expect(edge).to eq @edge
+    end
+
+    it 'count' do
+      expect(Edge.count).to eq 1
     end
   end
 end

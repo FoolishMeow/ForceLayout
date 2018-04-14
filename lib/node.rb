@@ -24,4 +24,8 @@ class Node
     end
     nil
   end
+
+  def self.count
+    @@nodes.length
+  end
 end

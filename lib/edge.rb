@@ -25,4 +25,8 @@ class Edge
       return edge if edge.id == id
     end
   end
+
+  def self.count
+    @@edges.length
+  end
 end
