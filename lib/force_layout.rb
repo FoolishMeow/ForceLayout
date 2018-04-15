@@ -122,6 +122,7 @@ class ForceLayout
       point = node.point
       speed = point.velocity.magnitude
       energy += 0.5 * point.mass * speed * speed
+      node.point.velocity = Vector.new(0, 0, 0)
     end
     energy
   end
