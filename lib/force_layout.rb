@@ -54,7 +54,7 @@ module ForceLayout
     def init_nodes_points
       Node.all.each do |node|
         vector = Vector.new(rand(-10..10), rand(-10..10), rand(-10..10))
-        node.point = Point.new(vector, node.id, node.data['group'])
+        node.point = Point.new(vector, node.id, node.data['type'])
       end
     end
 
