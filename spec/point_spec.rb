@@ -1,15 +1,14 @@
-require 'vector'
-require 'point'
+require 'spec_helper'
 
-RSpec.describe Point, 'point' do
+RSpec.describe ForceLayout::Point, 'point' do
   before(:all) do
-    position = Vector.new(1, 2, 3)
-    @point = Point.new(position, 'id')
+    position = ForceLayout::Vector.new(1, 2, 3)
+    @point = ForceLayout::Point.new(position, 'id')
   end
 
   context 'Accelerate' do
     it 'can update its accelerate' do
-      force = Vector.new(2, 3, 4)
+      force = ForceLayout::Vector.new(2, 3, 4)
       accelerate = @point.update_accelerate(force)
       expect(accelerate.x).to eq 2
       expect(accelerate.y).to eq 3

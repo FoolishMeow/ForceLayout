@@ -5,5 +5,5 @@ require 'force_layout'
 data = File.read(Dir.pwd + '/bin/data.json')
 ForceLayout.run! data
 res = {}
-ForceLayout::Node.all.map {|n| res[n.id] = n.data}
+ForceLayout::Node.all.map { |n| res[n.id] = n.data }
 puts res

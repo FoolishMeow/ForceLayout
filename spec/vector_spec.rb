@@ -1,10 +1,10 @@
-require 'vector'
+require 'spec_helper'
 
-RSpec.describe Vector, 'vector' do
+RSpec.describe ForceLayout::Vector, 'vector' do
   before(:all) do
-    @vector1 = Vector.new(1, 2, 3)
-    @vector2 = Vector.new(2, 3, 4)
-    @vector3 = Vector.new(1, 2, 2)
+    @vector1 = ForceLayout::Vector.new(1, 2, 3)
+    @vector2 = ForceLayout::Vector.new(2, 3, 4)
+    @vector3 = ForceLayout::Vector.new(1, 2, 2)
   end
 
   context 'Bsic operation' do

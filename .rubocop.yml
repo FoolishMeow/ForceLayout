@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - Guardfile
     - spec/spec_helper.rb
+    - force_layout.gemspec
   DisplayCopNames: true
   DisplayStyleGuide: true
   TargetRubyVersion: 2.5

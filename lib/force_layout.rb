@@ -29,21 +29,7 @@ module ForceLayout
       @center = Vector.new(0, 0, 0)
     end
 
-    def run
-      import_data
-      init_nodes_points
-      init_edges_spring
-      energy = total_energy
-
-      while energy < @energy_threshold || @iterations == 1_000_000
-        tick(@tick_interval)
-        @iterations += 1
-        energy = total_energy
-      end
-    end
-
     def import_data(raw_data)
-      # file = File.read('data.json')
       data = JSON.parse(raw_data)
       add_nodes(data['nodes'])
       add_edges(data['edges'])
@@ -149,4 +135,3 @@ module ForceLayout
     end
   end
 end
-

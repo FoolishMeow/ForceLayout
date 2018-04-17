@@ -1,12 +1,11 @@
-require 'node'
-require 'json'
+require 'spec_helper'
 
-RSpec.describe Node, 'node' do
+RSpec.describe ForceLayout::Node, 'node' do
   before(:all) do
     file = File.read(File.expand_path('./test_data.json', File.dirname(__FILE__)))
     data = JSON.parse(file)
     node_data = data['nodes'][0]
-    @node = Node.new(node_data)
+    @node = ForceLayout::Node.new(node_data)
   end
 
   context 'Init Node' do
@@ -18,16 +17,16 @@ RSpec.describe Node, 'node' do
   context 'Save and Search' do
     it 'can save all nodes in Node.all' do
       @node.save
-      expect(Node.all).to eq [@node]
+      expect(ForceLayout::Node.all).to eq [@node]
     end
 
     it 'can find node by id' do
-      node = Node.find('Myriel')
+      node = ForceLayout::Node.find('Myriel')
       expect(node).to eq @node
     end
 
     it 'count' do
-      expect(Node.count).to eq 1
+      expect(ForceLayout::Node.count).to eq 1
     end
   end
 end
