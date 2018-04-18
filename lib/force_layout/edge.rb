@@ -14,7 +14,7 @@ module ForceLayout
     end
 
     def save
-      @@edges << self unless self.duplicated?
+      @@edges << self unless duplicated?
     end
 
     def self.add_edges(edges_data)

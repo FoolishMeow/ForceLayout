@@ -55,4 +55,12 @@ RSpec.describe ForceLayout::Vector, 'vector' do
       expect(normal.z).to eq 0.6666666666666666
     end
   end
+
+  context 'Save' do
+    it 'check duplicated' do
+      @vector1.save
+      expect(ForceLayout::Vector.new(1, 2, 3).duplicated?).to eq true
+      expect(ForceLayout::Vector.new(2, 2, 3).duplicated?).to eq false
+    end
+  end
 end

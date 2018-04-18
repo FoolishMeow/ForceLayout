@@ -1,20 +1,15 @@
 require 'spec_helper'
 
-RSpec.describe ForceLayout::ForceLayout, 'force_layout' do
+RSpec.describe ForceLayout::Entirety, 'force_layout' do
   before(:all) do
-    file = File.read(File.expand_path('./test_data.json', File.dirname(__FILE__)))
-    @data = JSON.parse(file)
-    @force_layout = ForceLayout::ForceLayout.new
+    @file = File.read(File.expand_path('./test_data.json', File.dirname(__FILE__)))
+    @force_layout = ForceLayout::Entirety.new
   end
 
   context 'Parse data to Object' do
-    it 'add nodes' do
-      @force_layout.add_nodes(@data['nodes'])
+    it 'import data' do
+      @force_layout.import_data(@file)
       expect(ForceLayout::Node.count).to eq 4
-    end
-
-    it 'add edges' do
-      @force_layout.add_edges(@data['edges'])
       expect(ForceLayout::Edge.count).to eq 3
     end
   end

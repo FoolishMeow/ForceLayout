@@ -1,4 +1,5 @@
 require 'json'
+
 module ForceLayout
   autoload :Edge,         'force_layout/edge'
   autoload :Node,         'force_layout/node'
@@ -6,22 +7,23 @@ module ForceLayout
   autoload :Point,        'force_layout/point'
   autoload :Spring,       'force_layout/spring'
 
-  def self.run!(data)
-    @thread = ForceLayout.new
+  def self.entirety_layout!(data)
+    @thread = Entirety.new
     @thread.import_data data
     @thread.init_nodes_points
     @thread.init_edges_spring
-    energy = @thread.total_energy
+    energy = 10
 
-    while energy < @thread.energy_threshold || @thread.iterations == 1_000_000
+    while energy > @thread.energy_threshold
       @thread.tick(@thread.tick_interval)
       @thread.iterations += 1
       energy = @thread.total_energy
     end
   end
 
-  class ForceLayout
+  class Entirety
     attr_accessor :energy_threshold, :iterations, :center, :tick_interval
+
     def initialize
       @energy_threshold = 0.1
       @tick_interval = 0.02
@@ -31,29 +33,15 @@ module ForceLayout
 
     def import_data(raw_data)
       data = JSON.parse(raw_data)
-      add_nodes(data['nodes'])
-      add_edges(data['edges'])
-    end
-
-    def add_nodes(nodes_data)
-      nodes_data.each do |node_data|
-        node = Node.new(node_data)
-        node.save if node.id
-      end
-    end
-
-    def add_edges(edges_data)
-      index = 0
-      edges_data.each do |edge_data|
-        edge = Edge.new(index, edge_data)
-        edge.save
-        index += 1
-      end
+      Node.add_nodes(data['nodes'])
+      Edge.add_edges(data['edges'])
     end
 
     def init_nodes_points
       Node.all.each do |node|
         vector = Vector.new(rand(-10..10), rand(-10..10), rand(-10..10))
+        vector = Vector.new(rand(-10..10), rand(-10..10), rand(-10..10)) while vector.duplicated?
+        vector.save
         node.point = Point.new(vector, node.id, node.data['type'])
       end
     end
@@ -112,6 +100,9 @@ module ForceLayout
       Node.all.each do |node|
         point = node.point
         point.velocity += point.accelerate * interval * Point::DAMPING
+        if point.velocity.magnitude > Point::MAX_SPEED
+          point.velocity = point.velocity.normalize * Point::MAX_SPEED
+        end
         point.accelerate = Vector.new(0, 0, 0)
       end
     end

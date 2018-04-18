@@ -2,6 +2,8 @@ module ForceLayout
   class Vector
     attr_reader :x, :y, :z
 
+    @@vectors = []
+
     def initialize(x, y, z)
       @x, @y, @z = x, y, z
     end
@@ -40,6 +42,17 @@ module ForceLayout
 
     def normalize
       self / magnitude
+    end
+
+    def save
+      @@vectors << self unless duplicated?
+    end
+
+    def duplicated?
+      @@vectors.each do |vector|
+        return true if vector.x == x && vector.y == y && vector.z == z
+      end
+      false
     end
   end
 end
