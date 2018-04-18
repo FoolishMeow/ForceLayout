@@ -1,13 +1,14 @@
 {
    "nodes": [
-    {"id": "Myriel", "type": 1},
-    {"id": "Napoleon", "type": 1},
-    {"id": "Mlle_Baptistine", "type": 1},
-    {"id": "Mme_Magloire", "type": 1}
+    {"id": "Myriel", "label": "Myriel", "type": 1},
+    {"id": "Napoleon", "label": "Napoleon", "type": 1},
+    {"id": "Mlle_Baptistine", "label": "Mlle_Baptistine", "type": 1},
+    {"id": "Mme_Magloire", "label": "Mme_Magloire", "type": 1}
   ],
   "edges": [
     {"source": "Napoleon", "target": "Myriel", "value": 1},
     {"source": "Mlle_Baptistine", "target": "Myriel", "value": 8},
+    {"source": "Mme_Magloire", "target": "Myriel", "value": 10},
     {"source": "Mme_Magloire", "target": "Myriel", "value": 10}
   ]
 }

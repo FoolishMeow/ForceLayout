@@ -15,6 +15,13 @@ module ForceLayout
       @@nodes << self if Node.find(id).nil?
     end
 
+    def self.add_nodes(nodes_data)
+      nodes_data.each do |node_data|
+        node = Node.new(node_data)
+        node.save
+      end
+    end
+
     def self.all
       @@nodes
     end

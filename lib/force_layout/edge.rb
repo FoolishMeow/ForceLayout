@@ -14,11 +14,26 @@ module ForceLayout
     end
 
     def save
-      @@edges << self unless @source.nil? || @target.nil?
+      @@edges << self unless self.duplicated?
+    end
+
+    def self.add_edges(edges_data)
+      index = 0
+      edges_data.each do |edge_data|
+        edge = Edge.new(index, edge_data)
+        index += 1 if edge.save
+      end
     end
 
     def self.all
       @@edges
+    end
+
+    def duplicated?
+      @@edges.each do |edge|
+        return true if edge.source == source && edge.target == target
+      end
+      false
     end
 
     def self.find(id)

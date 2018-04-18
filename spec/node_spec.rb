@@ -3,14 +3,15 @@ require 'spec_helper'
 RSpec.describe ForceLayout::Node, 'node' do
   before(:all) do
     file = File.read(File.expand_path('./test_data.json', File.dirname(__FILE__)))
-    data = JSON.parse(file)
-    node_data = data['nodes'][0]
-    @node = ForceLayout::Node.new(node_data)
+    @data = JSON.parse(file)
+    @node_data = @data['nodes'][0]
+    @node = ForceLayout::Node.new(@node_data)
   end
 
   context 'Init Node' do
-    it 'can new a node with data' do
+    it 'can new a node with node_data' do
       expect(@node.id).to eq 'Myriel'
+      expect(@node.data).to eq @node_data
     end
   end
 
@@ -24,9 +25,12 @@ RSpec.describe ForceLayout::Node, 'node' do
       node = ForceLayout::Node.find('Myriel')
       expect(node).to eq @node
     end
+  end
 
-    it 'count' do
-      expect(ForceLayout::Node.count).to eq 1
+  context 'Add nodes with data' do
+    it 'transform data to nodes objects' do
+      ForceLayout::Node.add_nodes(@data['nodes'])
+      expect(ForceLayout::Node.count).to eq 4
     end
   end
 end
