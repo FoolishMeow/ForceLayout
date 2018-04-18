@@ -11,7 +11,7 @@ module ForceLayout
   def self.entirety_layout!(data)
     @thread = Entirety.new
     @thread.import_data data
-    @thread.init_nodes_points
+    @thread.init_nodes_point
     @thread.init_edges_spring
     energy = 10
 

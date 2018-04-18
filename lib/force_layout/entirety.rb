@@ -15,7 +15,7 @@ module ForceLayout
       Edge.add_edges(data['edges'])
     end
 
-    def init_nodes_points
+    def init_nodes_point
       Node.all.each do |node|
         vector = Vector.new(rand(-10..10), rand(-10..10), rand(-10..10))
         vector = Vector.new(rand(-10..10), rand(-10..10), rand(-10..10)) while vector.duplicated?
