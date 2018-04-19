@@ -16,4 +16,13 @@ RSpec.describe ForceLayout::Spring, 'spring' do
       expect(spring.length).to eq 3
     end
   end
+
+  context 'Force between spring' do
+    it 'apply hookes law' do
+      spring = ForceLayout::Spring.new(@point1, @point2, 3)
+      spring.apply_hookes_law
+      expect(spring.source.accelerate.x).not_to eq 0
+      expect(spring.target.accelerate.y).not_to eq 0
+    end
+  end
 end

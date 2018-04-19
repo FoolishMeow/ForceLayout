@@ -15,4 +15,13 @@ RSpec.describe ForceLayout::Point, 'point' do
       expect(accelerate.z).to eq 4
     end
   end
+
+  context 'Force between points' do
+    it 'apply coulombs law' do
+      expect(@point.accelerate.x).to eq 2
+      another_point = ForceLayout::Point.new(ForceLayout::Vector.new(2, 3, 4), 'another_id')
+      @point.apply_coulombs_law(another_point)
+      expect(@point.accelerate.x).not_to eq 2
+    end
+  end
 end

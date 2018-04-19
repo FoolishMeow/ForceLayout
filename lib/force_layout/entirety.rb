@@ -1,12 +1,11 @@
 module ForceLayout
   class Entirety
-    attr_accessor :energy_threshold, :iterations, :center, :tick_interval
+    attr_accessor :energy_threshold, :iterations, :tick_interval
 
     def initialize
       @energy_threshold = 0.1
       @tick_interval = 0.02
       @iterations = 0
-      @center = Vector.new(0, 0, 0)
     end
 
     def import_data(raw_data)
@@ -42,27 +41,19 @@ module ForceLayout
     end
 
     def update_coulombs_law
-      (0...Node.count).each do |i|
+      (0...(Node.count - 1)).each do |i|
+        point_i = Node.all[i].point
         ((i + 1)...Node.count).each do |j|
-          node_i = Node.all[i]
-          node_j = Node.all[j]
-          vector = node_i.point.position - node_j.point.position
-          distance = (vector.magnitude + 0.1) * Point::COULOM_DIS_SCALE
-          direction = vector.normalize
-          node_i.point.update_accelerate(direction * Point::REPULSION / (distance * distance))
-          node_j.point.update_accelerate(direction * Point::REPULSION / (distance * distance) * -1)
+          point_j = Node.all[j].point
+          point_i.apply_coulombs_law(point_j)
         end
       end
     end
 
     def update_hookes_law
-      (0...Edge.count).each do |i|
-        spring = Edge.all[i].spring
-        vector = spring.target.position - spring.source.position
-        direction = vector.normalize
-        displacement = spring.length - vector.magnitude
-        spring.source.update_accelerate(direction * (- Spring::STIFFNESS * displacement))
-        spring.target.update_accelerate(direction * (Spring::STIFFNESS * displacement))
+      Edge.all.each do |edge|
+        spring = edge.spring
+        spring.apply_hookes_law
       end
     end
 
@@ -70,7 +61,7 @@ module ForceLayout
       Node.all.each do |node|
         point = node.point
         direction = point.position
-        point.update_accelerate(direction * - Point::REPULSION / 100.0)
+        point.update_accelerate(direction * - Point::REPULSION / 50.0)
       end
     end
 

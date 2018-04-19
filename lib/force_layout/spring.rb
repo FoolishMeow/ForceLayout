@@ -10,5 +10,13 @@ module ForceLayout
       @target = target
       @length = length
     end
+
+    def apply_hookes_law
+      vector = @target.position - @source.position
+      direction = vector.normalize
+      displacement = @length - vector.magnitude
+      @source.update_accelerate(direction * (- STIFFNESS * displacement))
+      @target.update_accelerate(direction * (STIFFNESS * displacement))
+    end
   end
 end

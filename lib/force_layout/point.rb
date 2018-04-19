@@ -20,5 +20,13 @@ module ForceLayout
     def update_accelerate(force)
       @accelerate += force / mass
     end
+
+    def apply_coulombs_law(point)
+      vector = position - point.position
+      distance = vector.magnitude + 0.1
+      direction = vector.normalize
+      update_accelerate(direction * Point::REPULSION / (distance * distance * 0.05))
+      point.update_accelerate(direction * Point::REPULSION / (distance * distance * -0.05))
+    end
   end
 end

@@ -2,7 +2,7 @@
    "nodes": [
     {"id": "Myriel", "label": "Myriel", "type": 1},
     {"id": "Napoleon", "label": "Napoleon", "type": 1},
-    {"id": "Mlle_Baptistine", "label": "Mlle_Baptistine", "type": 1},
+    {"id": "Mlle_Baptistine", "label": "Mlle_Baptistine", "type": 2},
     {"id": "Mme_Magloire", "label": "Mme_Magloire", "type": 1}
   ],
   "edges": [
