@@ -1,6 +1,7 @@
 module ForceLayout
   class Entirety
-    attr_accessor :energy_threshold, :iterations, :tick_interval
+    attr_accessor :energy_threshold, :iterations
+    attr_reader :tick_interval
 
     def initialize
       @energy_threshold = 0.1

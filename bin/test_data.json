@@ -1,0 +1,9 @@
+{
+  "nodes": [
+    {"id": "Myriel", "type": 1},
+    {"id": "Napoleon", "type": 1}
+  ],
+  "edges": [
+    {"source": "Napoleon", "target": "Myriel", "value": 1}
+  ]
+}

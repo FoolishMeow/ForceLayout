@@ -59,7 +59,7 @@ RSpec.describe ForceLayout::Entirety, 'force_layout' do
       expect(ForceLayout::Node.all[0].point.position.x).not_to eq origin_position_x
     end
 
-    it 'get totle energy' do
+    it 'get total energy' do
       expect(@entirety_layout.total_energy).not_to eq 0
     end
   end
