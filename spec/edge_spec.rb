@@ -45,4 +45,20 @@ RSpec.describe ForceLayout::Edge, 'edge' do
       expect(ForceLayout::Edge.count).to eq 3
     end
   end
+
+  context 'Layer' do
+    it 'check if in a layer' do
+      expect(@edge.in_same_layer?).to eq true
+      edge_2 = ForceLayout::Edge.new(1, @data['edges'][1])
+      expect(edge_2.in_same_layer?).to eq false
+    end
+
+    it 'return edges that in the same layer' do
+      expect(ForceLayout::Edge.in_same_layer.length).to eq 2
+    end
+
+    it 'return edges that cross different layers' do
+      expect(ForceLayout::Edge.cross_layers.length).to eq 1
+    end
+  end
 end

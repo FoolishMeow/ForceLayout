@@ -17,6 +17,25 @@ module ForceLayout
       @@edges << self unless duplicated?
     end
 
+    def duplicated?
+      @@edges.each do |edge|
+        return true if edge.source == source && edge.target == target
+      end
+      false
+    end
+
+    def in_same_layer?
+      source.data['type'] == target.data['type']
+    end
+
+    def self.in_same_layer
+      @@edges.select(&:in_same_layer?)
+    end
+
+    def self.cross_layers
+      @@edges - Edge.in_same_layer
+    end
+
     def self.add_edges(edges_data)
       index = 0
       edges_data.each do |edge_data|
@@ -27,13 +46,6 @@ module ForceLayout
 
     def self.all
       @@edges
-    end
-
-    def duplicated?
-      @@edges.each do |edge|
-        return true if edge.source == source && edge.target == target
-      end
-      false
     end
 
     def self.find(id)
