@@ -37,7 +37,7 @@ module ForceLayout
       Layer.all.each do |layer|
         layer.nodes.each do |node|
           vector = Vector.new(rand(-10..10), rand(-10..10), index)
-          vector = Vector.new(rand(-10..10), rand(-10..10), index) while vector.duplicated?
+          vector = Vector.new(rand(-10..10), rand(-10..10), index) while vector.duplicated_in_xy?
           vector.save
           node.point = Point.new(vector, node.id, node.data['type'])
         end

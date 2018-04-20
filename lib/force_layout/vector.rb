@@ -54,5 +54,12 @@ module ForceLayout
       end
       false
     end
+
+    def duplicated_in_xy?
+      @@vectors.each do |vector|
+        return true if vector.x == x && vector.y == y
+      end
+      false
+    end
   end
 end
