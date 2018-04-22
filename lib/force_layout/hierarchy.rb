@@ -3,7 +3,7 @@ module ForceLayout
     attr_accessor :energy_threshold, :tick_interval, :iterations
 
     def initialize
-      @energy_threshold = 0.001
+      @energy_threshold = 0.0001
       @tick_interval = 0.02
       @iterations = 0
     end
@@ -41,7 +41,7 @@ module ForceLayout
           vector.save
           node.point = Point.new(vector, node.id, node.data['type'])
         end
-        index += 2
+        index += 5
       end
     end
 
@@ -70,7 +70,7 @@ module ForceLayout
       Edge.cross_layers.each do |edge|
         spring = edge.spring
         vector = spring.target.position - spring.source.position
-        displacement = 2 - vector.magnitude
+        displacement = 5 - vector.magnitude
         force = Spring::STIFFNESS * displacement
         target_on_layer = Vector.new(spring.target.position.x, spring.target.position.y, spring.source.position.z)
         vector_on_layer = (target_on_layer - spring.source.position)
