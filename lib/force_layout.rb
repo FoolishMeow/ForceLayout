@@ -9,6 +9,7 @@ module ForceLayout
   autoload :Layer,        'force_layout/layer'
   autoload :Entirety,     'force_layout/entirety'
   autoload :Hierarchy,    'force_layout/hierarchy'
+  autoload :Spherical,    'force_layout/spherical'
 
   def self.entirety_layout!(data)
     @thread = Entirety.new
@@ -33,6 +34,15 @@ module ForceLayout
     @thread.tick(@thread.tick_interval)
     energy = @thread.total_energy
 
+    while energy > @thread.energy_threshold
+      @thread.tick(@thread.tick_interval)
+      @thread.iterations += 1
+    @thread = Spherical.new
+    @thread.import_data data
+    @thread.init_nodes_point
+    @thread.init_edges_spring
+    @thread.tick(@thread.tick_interval)
+    energy = @thread.total_energy
     while energy > @thread.energy_threshold
       @thread.tick(@thread.tick_interval)
       @thread.iterations += 1
