@@ -1,3 +1,4 @@
+require "force_layout/version"
 require 'json'
 
 module ForceLayout
@@ -37,6 +38,7 @@ module ForceLayout
     while energy > @thread.energy_threshold
       @thread.tick(@thread.tick_interval)
       @thread.iterations += 1
+    end
     @thread = Spherical.new
     @thread.import_data data
     @thread.init_nodes_point
