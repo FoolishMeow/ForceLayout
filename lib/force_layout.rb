@@ -12,6 +12,17 @@ module ForceLayout
   autoload :Hierarchy,    'force_layout/hierarchy'
   autoload :Spherical,    'force_layout/spherical'
 
+  mattr_accessor :settings
+  @@settings = {
+    energy_threshold: 0.0001,
+    tick_interval: 0.02,
+    iterations: 0
+  }
+
+  def self.setting(key, value)
+    @@settings[key] = value
+  end
+
   def self.entirety_layout!(data)
     @thread = Entirety.new
     @thread.import_data data

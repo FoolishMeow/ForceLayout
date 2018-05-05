@@ -3,13 +3,12 @@ module ForceLayout
     attr_accessor :energy_threshold, :tick_interval, :iterations
 
     def initialize
-      @energy_threshold = 0.0001
-      @tick_interval = 0.02
-      @iterations = 0
+      @energy_threshold = ForceLayout.settings[:energy_threshold]
+      @tick_interval = ForceLayout.settings[:tick_interval]
+      @iterations = ForceLayout.settings[:iterations]
     end
 
-    def import_data(raw_data)
-      data = JSON.parse(raw_data)
+    def import_data(data)
       add_nodes(data['nodes'])
       add_edges(data['edges'])
     end
