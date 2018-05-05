@@ -15,9 +15,9 @@ module ForceLayout
         @thread.tick(@thread.tick_interval)
         @thread.iterations += 1
         energy = @thread.total_energy
-        if ForceLayout.settings.debug
+        if ForceLayout.settings[:debug]
           if (timer += 1) > ForceLayout::DEBUG_INTERVAL
-            puts "Now Energy: #{energy}, target: #{ForceLayout.settings.energy_threshold}"
+            puts "Now Energy: #{energy}, target: #{ForceLayout.settings[:energy_threshold]}"
             timer = 0
           end
         end
