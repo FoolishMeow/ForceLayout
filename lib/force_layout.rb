@@ -50,6 +50,7 @@ module ForceLayout
       while energy > @thread.energy_threshold
         @thread.tick(@thread.tick_interval)
         @thread.iterations += 1
+        energy = @thread.total_energy
       end
     end
 
@@ -60,6 +61,7 @@ module ForceLayout
       @thread.init_edges_spring
       @thread.tick(@thread.tick_interval)
       energy = @thread.total_energy
+
       while energy > @thread.energy_threshold
         @thread.tick(@thread.tick_interval)
         @thread.iterations += 1
