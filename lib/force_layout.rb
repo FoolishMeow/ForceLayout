@@ -19,47 +19,52 @@ module ForceLayout
     iterations: 0
   }
 
-  def self.setting(key, value)
-    @@settings[key] = value
-  end
-
-  def self.entirety_layout!(data)
-    @thread = Entirety.new
-    @thread.import_data data
-    @thread.init_nodes_point
-    @thread.init_edges_spring
-    @thread.tick(@thread.tick_interval)
-    energy = @thread.total_energy
-
-    while energy > @thread.energy_threshold
-      @thread.tick(@thread.tick_interval)
-      @thread.iterations += 1
-      energy = @thread.total_energy
+  class << self
+    def setting(key, value)
+      @@settings[key] = value
     end
-  end
 
-  def self.hierarchy_layout!(data)
-    @thread = Hierarchy.new
-    @thread.import_data data
-    @thread.init_nodes_point
-    @thread.init_edges_spring
-    @thread.tick(@thread.tick_interval)
-    energy = @thread.total_energy
-
-    while energy > @thread.energy_threshold
+    def entirety_layout!(data)
+      @thread = Entirety.new
+      @thread.import_data data
+      @thread.init_nodes_point
+      @thread.init_edges_spring
       @thread.tick(@thread.tick_interval)
-      @thread.iterations += 1
-    end
-    @thread = Spherical.new
-    @thread.import_data data
-    @thread.init_nodes_point
-    @thread.init_edges_spring
-    @thread.tick(@thread.tick_interval)
-    energy = @thread.total_energy
-    while energy > @thread.energy_threshold
-      @thread.tick(@thread.tick_interval)
-      @thread.iterations += 1
       energy = @thread.total_energy
+
+      while energy > @thread.energy_threshold
+        @thread.tick(@thread.tick_interval)
+        @thread.iterations += 1
+        energy = @thread.total_energy
+      end
+    end
+
+    def hierarchy_layout!(data)
+      @thread = Hierarchy.new
+      @thread.import_data data
+      @thread.init_nodes_point
+      @thread.init_edges_spring
+      @thread.tick(@thread.tick_interval)
+      energy = @thread.total_energy
+
+      while energy > @thread.energy_threshold
+        @thread.tick(@thread.tick_interval)
+        @thread.iterations += 1
+      end
+    end
+
+    def spherical_layout!(data)
+      @thread = Spherical.new
+      @thread.import_data data
+      @thread.init_nodes_point
+      @thread.init_edges_spring
+      @thread.tick(@thread.tick_interval)
+      energy = @thread.total_energy
+      while energy > @thread.energy_threshold
+        @thread.tick(@thread.tick_interval)
+        @thread.iterations += 1
+        energy = @thread.total_energy
+      end
     end
   end
 end

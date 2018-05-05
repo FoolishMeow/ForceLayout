@@ -4,9 +4,9 @@ module ForceLayout
     attr_reader :tick_interval
 
     def initialize
-      @energy_threshold = 0.1
-      @tick_interval = 0.02
-      @iterations = 0
+      @energy_threshold = ForceLayout.settings[:energy_threshold]
+      @tick_interval = ForceLayout.settings[:tick_interval]
+      @iterations = ForceLayout.settings[:iterations]
     end
 
     def import_data(raw_data)
