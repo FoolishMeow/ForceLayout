@@ -1,19 +1,40 @@
 module ForceLayout
-  class Spherical
-    attr_accessor :energy_threshold, :iterations
-    attr_reader :tick_interval
+  class LayoutAlgorithm
+    attr_accessor :energy_threshold, :tick_interval, :iterations
 
-    def initialize
-      @energy_threshold = 0.00001
-      @tick_interval = 0.02
-      @iterations = 0
+    def self.exec!(data)
+      @thread = self.new
+      @thread.import_data data
+      @thread.init_nodes_point
+      @thread.init_edges_spring
+      @thread.tick(@thread.tick_interval)
+      energy = @thread.total_energy
+
+      timer = 0
+      while energy > @thread.energy_threshold
+        @thread.tick(@thread.tick_interval)
+        @thread.iterations += 1
+        energy = @thread.total_energy
+        if ForceLayout.settings.debug
+          if (timer += 1) > ForceLayout::DEBUG_INTERVAL
+            puts "Now Energy: #{energy}, target: #{ForceLayout.settings.energy_threshold}"
+            timer = 0
+          end
+        end
+      end
     end
 
-    def import_data(raw_data)
-      data = JSON.parse(raw_data)
+    def initialize
+      @energy_threshold = ForceLayout.settings[:energy_threshold]
+      @tick_interval = ForceLayout.settings[:tick_interval]
+      @iterations = ForceLayout.settings[:iterations]
+    end
+
+    def import_data(data)
       Node.add_nodes(data['nodes'])
       Edge.add_edges(data['edges'])
     end
+
 
     def init_nodes_point
       Node.all.each do |node|
@@ -42,32 +63,15 @@ module ForceLayout
     end
 
     def update_coulombs_law
-      (0...(Node.count - 1)).each do |i|
-        point_i = Node.all[i].point
-        ((i + 1)...Node.count).each do |j|
-          point_j = Node.all[j].point
-          point_i.apply_coulombs_law(point_j)
-        end
-      end
+      raise "Need Redefine for #{self.class}"
     end
 
     def update_hookes_law
-      Edge.all.each do |edge|
-        spring = edge.spring
-        spring.apply_hookes_law
-      end
+      raise "Need Redefine for #{self.class}"
     end
 
     def attract_to_center
-      center = Vector.new(0, 0, 0)
-      center_point = Point.new(center, 'center')
-      Node.all.each do |node|
-        point = node.point
-        vector = node.point.position
-        direction = vector.normalize
-        displacement = 20 - vector.magnitude
-        node.point.update_accelerate(direction * (2000 * displacement))
-      end
+      raise "Need Redefine for #{self.class}"
     end
 
     def update_velocity(interval)

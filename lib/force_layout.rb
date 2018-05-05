@@ -1,4 +1,5 @@
-require "force_layout/version"
+require_relative "force_layout/version"
+require_relative "force_layout/layout_algorithm"
 require 'json'
 
 module ForceLayout
@@ -8,65 +9,38 @@ module ForceLayout
   autoload :Point,        'force_layout/point'
   autoload :Spring,       'force_layout/spring'
   autoload :Layer,        'force_layout/layer'
-  autoload :Entirety,     'force_layout/entirety'
-  autoload :Hierarchy,    'force_layout/hierarchy'
-  autoload :Spherical,    'force_layout/spherical'
+  autoload :Entirety,     'force_layout/layout_algorithms/entirety'
+  autoload :Hierarchy,    'force_layout/layout_algorithms/hierarchy'
+  autoload :Spherical,    'force_layout/layout_algorithms/spherical'
 
-  mattr_accessor :settings
   @@settings = {
-    energy_threshold: 0.0001,
+    energy_threshold: 100000,
     tick_interval: 0.02,
-    iterations: 0
+    iterations: 0,
+    debug: true
   }
 
+  DEBUG_INTERVAL = 10
+
   class << self
-    def setting(key, value)
+    def settings
+      @@settings
+    end
+
+    def set(key, value)
       @@settings[key] = value
     end
 
     def entirety_layout!(data)
-      @thread = Entirety.new
-      @thread.import_data data
-      @thread.init_nodes_point
-      @thread.init_edges_spring
-      @thread.tick(@thread.tick_interval)
-      energy = @thread.total_energy
-
-      while energy > @thread.energy_threshold
-        @thread.tick(@thread.tick_interval)
-        @thread.iterations += 1
-        energy = @thread.total_energy
-      end
+      Entirety.exec! data
     end
 
     def hierarchy_layout!(data)
-      @thread = Hierarchy.new
-      @thread.import_data data
-      @thread.init_nodes_point
-      @thread.init_edges_spring
-      @thread.tick(@thread.tick_interval)
-      energy = @thread.total_energy
-
-      while energy > @thread.energy_threshold
-        @thread.tick(@thread.tick_interval)
-        @thread.iterations += 1
-        energy = @thread.total_energy
-      end
+      Hierarchy.exec! data
     end
 
     def spherical_layout!(data)
-      @thread = Spherical.new
-      @thread.import_data data
-      @thread.init_nodes_point
-      @thread.init_edges_spring
-      @thread.tick(@thread.tick_interval)
-      energy = @thread.total_energy
-
-      while energy > @thread.energy_threshold
-        @thread.tick(@thread.tick_interval)
-        @thread.iterations += 1
-        energy = @thread.total_energy
-      end
+      Spherical.exec! data
     end
   end
 end
