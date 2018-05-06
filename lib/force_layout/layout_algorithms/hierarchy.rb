@@ -26,16 +26,19 @@ module ForceLayout
     end
 
     def init_nodes_point
-      index = 0
+      index = 1
+      layer_height = ForceLayout.settings[:layer_height] || 5
+      Layer.sort_by_edges
       Layer.all.each do |layer|
         layer.nodes.each do |node|
-          vector = Vector.new(rand(-20..20), rand(-20..20), index)
-          vector = Vector.new(rand(-20..20), rand(-20..20), index) while vector.duplicated_in_xy?
+          vector = Vector.new(rand(-20..20), rand(-20..20), index / 2 * layer_height)
+          vector = Vector.new(rand(-20..20), rand(-20..20), index / 2 * layer_height) while vector.duplicated_in_xy?
           vector.save
           node.point = Point.new(vector, node.id, node.data['type'])
         end
         # Main Point!
-        index += (ForceLayout.settings[:layer_height] || 5)
+        index += 1
+        layer_height *= -1
       end
     end
 

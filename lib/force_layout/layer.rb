@@ -34,5 +34,9 @@ module ForceLayout
       Layer.new(type).save unless Layer.find_by(type)
       find_by(type)
     end
+
+    def self.sort_by_edges
+      @@layers = @@layers.sort_by { |layer| layer.edges.count }.reverse!
+    end
   end
 end
