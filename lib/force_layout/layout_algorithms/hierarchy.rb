@@ -32,7 +32,8 @@ module ForceLayout
           vector.save
           node.point = Point.new(vector, node.id, node.data['type'])
         end
-        index += 5
+        # Main Point!
+        index += (ForceLayout.settings[:layer_height] || 5)
       end
     end
 

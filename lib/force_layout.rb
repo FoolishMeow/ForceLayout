@@ -17,10 +17,9 @@ module ForceLayout
     energy_threshold: 0.1,
     tick_interval: 0.02,
     iterations: 0,
-    debug: true
+    debug: true,
+    debug_interval: 10
   }
-
-  DEBUG_INTERVAL = 10
 
   class << self
     def settings

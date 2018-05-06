@@ -2,6 +2,7 @@ module ForceLayout
   class Spring
     attr_reader :source, :target, :length
 
+    # Main Point!
     DEFAULT_SPRING_LENGTH = 20
     STIFFNESS = 200.0
 
@@ -9,6 +10,10 @@ module ForceLayout
       @source = source
       @target = target
       @length = length
+    end
+
+    def self.default_length
+      ForceLayout.settings[:spring_default_length] || DEFAULT_SPRING_LENGTH
     end
 
     def apply_hookes_law

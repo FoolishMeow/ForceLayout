@@ -16,7 +16,7 @@ module ForceLayout
         @thread.iterations += 1
         energy = @thread.total_energy
         if ForceLayout.settings[:debug]
-          if (timer += 1) > ForceLayout::DEBUG_INTERVAL
+          if (timer += 1) > ForceLayout.settings[:debug_interval]
             puts "Now Energy: #{energy}, target: #{ForceLayout.settings[:energy_threshold]}"
             timer = 0
           end
@@ -49,7 +49,7 @@ module ForceLayout
       Edge.all.each do |edge|
         source = edge.source.point
         target = edge.target.point
-        length = Spring::DEFAULT_SPRING_LENGTH
+        length = Spring.default_length
         edge.spring = Spring.new(source, target, length)
       end
     end
