@@ -1,7 +1,7 @@
 module ForceLayout
   class Node
     attr_reader :id, :data
-    attr_accessor :point
+    attr_accessor :point, :related_in_same_layer
 
     @@nodes = []
 
@@ -9,6 +9,7 @@ module ForceLayout
       @id = data['id']
       @data = data
       @point = nil
+      @related_in_same_layer = false
     end
 
     def save

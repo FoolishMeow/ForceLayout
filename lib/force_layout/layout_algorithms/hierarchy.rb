@@ -17,6 +17,8 @@ module ForceLayout
       Edge.add_edges(edges_data)
       Edge.all.each do |edge|
         if edge.in_same_layer?
+          edge.source.related_in_same_layer = true
+          edge.target.related_in_same_layer = true
           layer = Layer.find_or_create_by(edge.source.data['type'])
           layer.edges << edge
         end
@@ -72,7 +74,11 @@ module ForceLayout
       Node.all.each do |node|
         point = node.point
         direction = Vector.new(node.point.position.x, node.point.position.y, 0)
-        point.update_accelerate(direction * - Point::REPULSION / 50.0)
+        if node.related_in_same_layer
+          point.update_accelerate(direction * - Point::REPULSION / 20.0)
+        else
+          point.update_accelerate(direction * - Point::REPULSION / 80.0)
+        end
       end
     end
   end
