@@ -19,7 +19,7 @@ module ForceLayout
     iterations: 0,
     debug: true,
     debug_interval: 10,
-    layer_height: 10
+    layer_height: 20
   }
 
   class << self

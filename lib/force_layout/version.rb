@@ -1,3 +1,3 @@
 module ForceLayout
-  VERSION = '0.1.6.1'.freeze
+  VERSION = '0.1.6.3'.freeze
 end
