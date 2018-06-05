@@ -3,7 +3,7 @@ module ForceLayout
     attr_reader :source, :target, :length
 
     # Main Point!
-    DEFAULT_SPRING_LENGTH = 20
+    DEFAULT_SPRING_LENGTH = 5
     STIFFNESS = 200.0
 
     def initialize(source, target, length)
