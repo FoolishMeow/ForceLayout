@@ -50,7 +50,7 @@ module ForceLayout
       Edge.cross_layers.each do |edge|
         spring = edge.spring
         vector = spring.target.position - spring.source.position
-        displacement = 5 - vector.magnitude
+        displacement = 60 - vector.magnitude
         force = Spring::STIFFNESS * displacement
         target_on_layer = Vector.new(spring.target.position.x, spring.target.position.y, spring.source.position.z)
         vector_on_layer = (target_on_layer - spring.source.position)
