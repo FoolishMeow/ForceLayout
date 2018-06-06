@@ -25,7 +25,7 @@ module ForceLayout
         vector = node.point.position
         direction = vector.normalize
         displacement = 20 - vector.magnitude
-        node.point.update_accelerate(direction * (2000 * displacement))
+        node.point.update_accelerate(direction * (200 * displacement))
       end
     end
   end

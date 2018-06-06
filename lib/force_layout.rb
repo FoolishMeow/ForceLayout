@@ -14,7 +14,7 @@ module ForceLayout
   autoload :Spherical,    'force_layout/layout_algorithms/spherical'
 
   @@settings = {
-    energy_threshold: 10,
+    energy_threshold: 100,
     tick_interval: 0.02,
     iterations: 0,
     debug: true,
